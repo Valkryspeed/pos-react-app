@@ -1,0 +1,24 @@
+<Window x:Class="Views.BukaShiftWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="Buka Shift" Width="400" Height="300"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
+        Background="{StaticResource PosBackground}">
+    <Border Padding="30">
+        <StackPanel VerticalAlignment="Center">
+            <TextBlock Text="BUKA SHIFT" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,20" Foreground="{StaticResource PosText}"/>
+            
+            <TextBlock Text="Masukkan Modal Awal Kas" Foreground="{StaticResource PosTextMuted}" Margin="0,0,0,10"/>
+            <TextBox x:Name="ModalAwalBox" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                     materialDesign:HintAssist.Hint="Rp 0" FontSize="20" Height="60"
+                     materialDesign:TextFieldAssist.PrefixText="Rp "
+                     PreviewTextInput="NumberValidationTextBox"
+                     Foreground="{StaticResource PosText}"/>
+            
+            <Button x:Name="BtnBukaShift" Content="BUKA SHIFT SEKARANG" Height="50" Margin="0,20,0,0"
+                    Background="{StaticResource PosSuccess}" BorderBrush="{StaticResource PosSuccess}"
+                    Click="BtnBukaShift_Click"/>
+        </StackPanel>
+    </Border>
+</Window>

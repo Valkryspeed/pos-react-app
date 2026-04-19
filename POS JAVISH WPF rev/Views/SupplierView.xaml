@@ -1,0 +1,46 @@
+<UserControl x:Class="Views.SupplierView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,20">
+            <TextBlock Text="Manajemen Supplier" Style="{StaticResource MaterialDesignHeadline5TextBlock}" VerticalAlignment="Center" Foreground="{StaticResource PosText}"/>
+            <Button Content="TAMBAH SUPPLIER" Margin="20,0,0,0" Style="{StaticResource MaterialDesignRaisedButton}" Background="{StaticResource PosSuccess}" Click="AddBtn_Click"/>
+        </StackPanel>
+
+        <materialDesign:Card Grid.Row="1" UniformCornerRadius="8" Background="{StaticResource PosPanel}">
+            <DataGrid x:Name="SupplierGrid" AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single"
+                      Background="Transparent" BorderThickness="0" materialDesign:DataGridAssist.CellPadding="10">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Nama Supplier" Binding="{Binding Nama}" Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Telepon" Binding="{Binding Telepon}" Width="150" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="200" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Alamat" Binding="{Binding Alamat}" Width="200" IsReadOnly="True"/>
+                    <DataGridTemplateColumn Width="120">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Style="{StaticResource MaterialDesignIconButton}" Click="EditBtn_Click" ToolTip="Edit">
+                                        <materialDesign:PackIcon Kind="Edit" Foreground="{StaticResource PosAccent}"/>
+                                    </Button>
+                                    <Button Style="{StaticResource MaterialDesignIconButton}" Click="DeleteBtn_Click" ToolTip="Hapus">
+                                        <materialDesign:PackIcon Kind="Delete" Foreground="{StaticResource PosError}"/>
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </materialDesign:Card>
+    </Grid>
+</UserControl>

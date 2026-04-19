@@ -1,0 +1,11 @@
+{
+  "models": [
+    {
+      "title": "OpenRouter Free",
+      "provider": "openrouter",
+      "model": "openrouter/auto",
+      "apiKey": "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"
+    }
+  ],
+  "defaultModel": "OpenRouter Free"
+}

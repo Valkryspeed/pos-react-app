@@ -1,0 +1,20 @@
+﻿POS JAVISH WPF
+1.0.0.0
+
+winexe
+VB
+.vb
+E:\POS JAVISH WPF rev\obj\Release\net8.0-windows10.0.17763.0\
+POS_JAVISH_WPF
+none
+false
+;WINDOWS;WINDOWS10_0_17763_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS10_0_17763_0_OR_GREATER;WINDOWS8_0_OR_GREATER;WINDOWS7_0_OR_GREATER
+E:\POS JAVISH WPF rev\Application.xaml
+20300113363
+23-1631946533
+451984112215
+372971970978
+MainWindow.xaml;Views\ActivationWindow.xaml;Views\BukaShiftWindow.xaml;Views\DashboardView.xaml;Views\ExpenseView.xaml;Views\KasirView.xaml;Views\LaporanLabaRugiView.xaml;Views\LaporanView.xaml;Views\LoginWindow.xaml;Views\LogPembelianView.xaml;Views\PembelianView.xaml;Views\PengaturanView.xaml;Views\ProductFormWindow.xaml;Views\ProdukView.xaml;Views\RestockBarangWindow.xaml;Views\ShiftReportView.xaml;Views\StockHistoryView.xaml;Views\SupplierView.xaml;Views\TutupShiftView.xaml;Views\UserManagementView.xaml;
+
+False
+

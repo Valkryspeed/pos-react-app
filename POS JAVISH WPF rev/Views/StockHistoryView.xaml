@@ -1,0 +1,68 @@
+<UserControl x:Class="Views.StockHistoryView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Riwayat Perubahan Stok" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Margin="0,0,0,20" Foreground="{StaticResource PosText}"/>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,20">
+            <DatePicker x:Name="StartDatePicker" materialDesign:HintAssist.Hint="Mulai" Width="150" Margin="0,0,10,0"/>
+            <DatePicker x:Name="EndDatePicker" materialDesign:HintAssist.Hint="Selesai" Width="150" Margin="0,0,10,0"/>
+            <TextBox x:Name="SearchBox" materialDesign:HintAssist.Hint="Cari Barang..." Width="200" Margin="0,0,10,0" materialDesign:TextFieldAssist.HasClearButton="True"/>
+            <Button x:Name="FilterBtn" Content="FILTER" Style="{StaticResource MaterialDesignRaisedButton}" Click="FilterBtn_Click"/>
+        </StackPanel>
+
+        <materialDesign:Card Grid.Row="2" UniformCornerRadius="8" Background="{StaticResource PosPanel}">
+            <DataGrid x:Name="HistoryGrid" AutoGenerateColumns="False" CanUserAddRows="False" 
+                      Background="Transparent" BorderThickness="0" materialDesign:DataGridAssist.CellPadding="10">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Waktu" Binding="{Binding Tanggal, StringFormat='dd/MM/yyyy HH:mm'}" Width="150" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Nama Barang" Binding="{Binding NamaBarang}" Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Tipe" Binding="{Binding Tipe}" Width="120" IsReadOnly="True">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Tipe}" Value="PENJUALAN">
+                                        <Setter Property="Foreground" Value="{StaticResource PosError}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Tipe}" Value="PEMBELIAN">
+                                        <Setter Property="Foreground" Value="{StaticResource PosSuccess}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Awal" Binding="{Binding QtyAwal}" Width="80" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="±" Binding="{Binding QtyPerubahan, StringFormat={}{0:+0;-0}}" Width="80" IsReadOnly="True">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="FontWeight" Value="Bold"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding QtyPerubahan, Converter={StaticResource PosNegConverter}}" Value="Positif">
+                                        <Setter Property="Foreground" Value="{StaticResource PosSuccess}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding QtyPerubahan, Converter={StaticResource PosNegConverter}}" Value="Negatif">
+                                        <Setter Property="Foreground" Value="{StaticResource PosError}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Akhir" Binding="{Binding QtyAkhir}" Width="80" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Keterangan" Binding="{Binding Keterangan}" Width="200" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="User" Binding="{Binding Username}" Width="100" IsReadOnly="True"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </materialDesign:Card>
+    </Grid>
+</UserControl>

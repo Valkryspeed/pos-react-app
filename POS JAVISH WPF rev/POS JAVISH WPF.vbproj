@@ -1,0 +1,96 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows10.0.17763.0</TargetFramework>
+    <RootNamespace>POS_JAVISH_WPF</RootNamespace>
+    <UseWPF>true</UseWPF>
+    <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
+    <Version>1.0.0</Version>
+    <FileVersion>1.0.0.0</FileVersion>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <EnableDefaultPageItems>true</EnableDefaultPageItems>
+    <ApplicationIcon>icon bloger javishpos.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="GENERATOR KEY\**" />
+    <EmbeddedResource Remove="GENERATOR KEY\**" />
+    <None Remove="GENERATOR KEY\**" />
+    <Page Remove="GENERATOR KEY\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="settings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="MANUAL_BOOK.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DAFTAR_FITUR.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="icon bloger javishpos.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Import Include="System.Windows" />
+    <Import Include="System.Windows.Controls" />
+    <Import Include="System.Windows.Data" />
+    <Import Include="System.Windows.Documents" />
+    <Import Include="System.Windows.Input" />
+    <Import Include="System.Windows.Media" />
+    <Import Include="System.Windows.Media.Imaging" />
+    <Import Include="System.Windows.Navigation" />
+    <Import Include="System.Windows.Shapes" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\DashboardView.xaml.vb">
+      <DependentUpon>DashboardView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\LaporanView.xaml.vb">
+      <DependentUpon>LaporanView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\PengaturanView.xaml.vb">
+      <DependentUpon>PengaturanView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\PembelianView.xaml.vb">
+      <DependentUpon>PembelianView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ProductFormWindow.xaml.vb">
+      <DependentUpon>ProductFormWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\KasirView.xaml.vb">
+      <DependentUpon>KasirView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ProdukView.xaml.vb">
+      <DependentUpon>ProdukView.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="BCrypt.Net-Next" Version="4.1.0" />
+    <PackageReference Include="ClosedXML" Version="0.105.0" />
+    <PackageReference Include="EPPlus" Version="8.5.0" />
+    <PackageReference Include="MaterialDesignColors" Version="5.3.0" />
+    <PackageReference Include="MaterialDesignThemes" Version="5.3.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.7">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.7" />
+    <PackageReference Include="System.Management" Version="8.0.0" />
+    <PackageReference Include="ModernWPF" Version="1.4.6" />
+    <PackageReference Include="PDFsharp" Version="6.2.4" />
+    <PackageReference Include="WPF.UI" Version="3.4.2.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\LoginWindow.xaml.vb">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+</Project>

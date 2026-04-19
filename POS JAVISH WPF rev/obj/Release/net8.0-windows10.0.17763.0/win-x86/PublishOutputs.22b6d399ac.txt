@@ -1,0 +1,12 @@
+e:\POS_JAVISH_32BIT\POS JAVISH WPF.pdb
+e:\POS_JAVISH_32BIT\DAFTAR_FITUR.md
+e:\POS_JAVISH_32BIT\MANUAL_BOOK.md
+e:\POS_JAVISH_32BIT\settings.json
+e:\POS_JAVISH_32BIT\D3DCompiler_47_cor3.dll
+e:\POS_JAVISH_32BIT\PenImc_cor3.dll
+e:\POS_JAVISH_32BIT\PresentationNative_cor3.dll
+e:\POS_JAVISH_32BIT\vcruntime140_cor3.dll
+e:\POS_JAVISH_32BIT\wpfgfx_cor3.dll
+e:\POS_JAVISH_32BIT\aspnetcorev2_inprocess.dll
+e:\POS_JAVISH_32BIT\e_sqlite3.dll
+e:\POS_JAVISH_32BIT\POS JAVISH WPF.exe

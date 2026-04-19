@@ -1,0 +1,263 @@
+<UserControl x:Class="Views.DashboardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="768" d:DesignWidth="1024">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Summary Cards -->
+        <Grid Grid.Row="0" Margin="0,0,0,30">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Card 1: Sales Today -->
+            <materialDesign:Card Grid.Column="0" Margin="0,0,15,0" Padding="15" Background="{StaticResource PosPanel}" UniformCornerRadius="10">
+                <StackPanel>
+                    <Grid>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="ChartLine" Width="20" Height="20" Foreground="{StaticResource PosAccent}"/>
+                            <TextBlock Text="Penjualan Hari Ini" Margin="8,0,0,0" VerticalAlignment="Center" Foreground="{StaticResource PosTextMuted}" FontSize="11"/>
+                        </StackPanel>
+                    </Grid>
+                    <TextBlock x:Name="SalesTodayText" Text="Rp 0" FontSize="22" FontWeight="Bold" Margin="0,10,0,0" Foreground="{StaticResource PosText}"/>
+                    <TextBlock x:Name="TransactionCountText" Text="0 Transaksi" Foreground="{StaticResource PosTextMuted}" FontSize="10" Margin="0,3,0,0"/>
+                </StackPanel>
+            </materialDesign:Card>
+
+            <!-- Card 2: Total Products -->
+            <materialDesign:Card Grid.Column="1" Margin="0,0,15,0" Padding="15" Background="{StaticResource PosPanel}" UniformCornerRadius="10">
+                <StackPanel>
+                    <Grid>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="PackageVariant" Width="20" Height="20" Foreground="{StaticResource PosWarning}"/>
+                            <TextBlock Text="Total Produk" Margin="8,0,0,0" VerticalAlignment="Center" Foreground="{StaticResource PosTextMuted}" FontSize="11"/>
+                        </StackPanel>
+                    </Grid>
+                    <TextBlock x:Name="TotalProductsText" Text="0" FontSize="22" FontWeight="Bold" Margin="0,10,0,0" Foreground="{StaticResource PosText}"/>
+                    <TextBlock Text="Item aktif" Foreground="{StaticResource PosTextMuted}" FontSize="10" Margin="0,3,0,0"/>
+                </StackPanel>
+            </materialDesign:Card>
+
+            <!-- Card 3: Stok Habis (NEW) -->
+            <materialDesign:Card Grid.Column="2" Margin="0,0,15,0" Padding="15" Background="{StaticResource PosPanel}" UniformCornerRadius="10">
+                <StackPanel>
+                    <Grid>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="AlertOctagon" Width="20" Height="20" Foreground="{StaticResource PosError}"/>
+                            <TextBlock Text="Stok Habis" Margin="8,0,0,0" VerticalAlignment="Center" Foreground="{StaticResource PosTextMuted}" FontSize="11"/>
+                        </StackPanel>
+                    </Grid>
+                    <TextBlock x:Name="EmptyStockText" Text="0" FontSize="22" FontWeight="Bold" Margin="0,10,0,0" Foreground="{StaticResource PosError}"/>
+                    <TextBlock Text="Barang" Foreground="{StaticResource PosTextMuted}" FontSize="10" Margin="0,3,0,0"/>
+                </StackPanel>
+            </materialDesign:Card>
+
+            <!-- Card 4: Stok Menipis (REPLACED) -->
+            <materialDesign:Card x:Name="LowStockCard" Grid.Column="3" Margin="0,0,15,0" Padding="15" Background="{StaticResource PosPanel}" UniformCornerRadius="10" ToolTipService.InitialShowDelay="100">
+                <StackPanel>
+                    <Grid>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="AlertCircleOutline" Width="20" Height="20" Foreground="{StaticResource PosWarning}"/>
+                            <TextBlock Text="Stok Menipis" Margin="8,0,0,0" VerticalAlignment="Center" Foreground="{StaticResource PosTextMuted}" FontSize="11"/>
+                        </StackPanel>
+                    </Grid>
+                    <TextBlock x:Name="LowStockText" Text="0" FontSize="22" FontWeight="Bold" Margin="0,10,0,0" Foreground="{StaticResource PosWarning}"/>
+                    <TextBlock Text="Perlu restock" Foreground="{StaticResource PosTextMuted}" FontSize="10" Margin="0,3,0,0"/>
+                </StackPanel>
+            </materialDesign:Card>
+
+            <!-- Card 5: Monthly Sales -->
+            <materialDesign:Card Grid.Column="4" Margin="0,0,15,0" Padding="15" Background="{StaticResource PosPanel}" UniformCornerRadius="10">
+                <StackPanel>
+                    <Grid>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="CalendarMonth" Width="20" Height="20" Foreground="{StaticResource PosSuccess}"/>
+                            <TextBlock Text="Penjualan Bulan Ini" Margin="8,0,0,0" VerticalAlignment="Center" Foreground="{StaticResource PosTextMuted}" FontSize="11"/>
+                        </StackPanel>
+                    </Grid>
+                    <TextBlock x:Name="MonthlySalesText" Text="Rp 0" FontSize="22" FontWeight="Bold" Margin="0,10,0,0" Foreground="{StaticResource PosText}"/>
+                </StackPanel>
+            </materialDesign:Card>
+
+            <!-- Card 6: Total Modal (Admin Only) -->
+            <materialDesign:Card Grid.Column="5" Padding="15" Background="{StaticResource PosPanel}" UniformCornerRadius="10" x:Name="TotalModalCard" Visibility="Collapsed">
+                <StackPanel>
+                    <Grid>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="CashMultiple" Width="20" Height="20" Foreground="{StaticResource PosAccent}"/>
+                            <TextBlock Text="Total Modal" Margin="8,0,0,0" VerticalAlignment="Center" Foreground="{StaticResource PosTextMuted}" FontSize="11"/>
+                        </StackPanel>
+                    </Grid>
+                    <TextBlock x:Name="TotalModalText" Text="Rp 0" FontSize="22" FontWeight="Bold" Margin="0,10,0,0" Foreground="{StaticResource PosText}"/>
+                </StackPanel>
+            </materialDesign:Card>
+        </Grid>
+
+        <!-- Main Content Area -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="420"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0" Margin="0,0,20,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Top Products (New Chart-like section) -->
+                <materialDesign:Card Grid.Row="0" Margin="0,0,0,20" Background="{StaticResource PosPanel}" UniformCornerRadius="8">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Border BorderBrush="{StaticResource PosBorder}" BorderThickness="0,0,0,1" Padding="20">
+                            <TextBlock Text="10 Produk Terlaris (Bulan Ini)" FontWeight="Bold" FontSize="16" Foreground="{StaticResource PosText}"/>
+                        </Border>
+                        <ItemsControl Grid.Row="1" x:Name="TopProductsList" Margin="20,10">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="0,0,0,12">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid>
+                                            <TextBlock Text="{Binding NamaBarang}" Foreground="{StaticResource PosText}"/>
+                                            <TextBlock Text="{Binding TotalQty, StringFormat='{}{0} terjual'}" HorizontalAlignment="Right" Foreground="{StaticResource PosTextMuted}" FontSize="11"/>
+                                        </Grid>
+                                        <ProgressBar Grid.Row="1" Value="{Binding TotalQty}" Maximum="{Binding MaxQty}" Height="8" Margin="0,5,0,0" Foreground="{StaticResource PosAccent}" Background="{StaticResource PosBackground}"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+                </materialDesign:Card>
+
+                <!-- Recent Transactions -->
+                <materialDesign:Card Grid.Row="1" VerticalAlignment="Stretch" Background="{StaticResource PosPanel}" UniformCornerRadius="8" Margin="0,20,0,0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border BorderBrush="{StaticResource PosBorder}" BorderThickness="0,0,0,1" Padding="20">
+                            <TextBlock Text="Transaksi Terakhir" FontWeight="Bold" FontSize="16" Foreground="{StaticResource PosText}"/>
+                        </Border>
+
+                        <DataGrid Grid.Row="1" x:Name="RecentTransactionsGrid" AutoGenerateColumns="False" IsReadOnly="True" 
+                                  HeadersVisibility="Column" GridLinesVisibility="Horizontal" Background="Transparent" BorderThickness="0">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="No Transaksi" Binding="{Binding NoTransaksi}" Width="*"/>
+                                <DataGridTextColumn Header="Waktu" Binding="{Binding Tanggal, StringFormat='HH:mm'}"/>
+                                <DataGridTextColumn Header="Total" Binding="{Binding Total, StringFormat=C0}" FontWeight="Bold">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Foreground" Value="{StaticResource PosSuccess}"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Header="Bayar" Binding="{Binding Bayar, StringFormat=C0}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </materialDesign:Card>
+            </Grid>
+
+            <!-- Mobile Activity & Low Stock List -->
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Mobile Activity Widget -->
+                <materialDesign:Card Grid.Row="0" Margin="0,0,0,20" Background="{StaticResource PosPanel}" UniformCornerRadius="8">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Border BorderBrush="{StaticResource PosBorder}" BorderThickness="0,0,0,1" Padding="20">
+                            <TextBlock Text="Mobile Scanner Activity" FontWeight="Bold" FontSize="16" Foreground="{StaticResource PosAccent}"/>
+                        </Border>
+                        <DataGrid Grid.Row="1" x:Name="MobileActivityGrid" AutoGenerateColumns="False" IsReadOnly="True" 
+                                  HeadersVisibility="Column" GridLinesVisibility="Horizontal" Background="Transparent" BorderThickness="0">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Mode" Binding="{Binding Mode}" Width="Auto">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="FontWeight" Value="Bold"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Mode}" Value="kasir">
+                                                    <Setter Property="Foreground" Value="{StaticResource PosAccent}"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Mode}" Value="opname">
+                                                    <Setter Property="Foreground" Value="{StaticResource PosWarning}"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Mode}" Value="restock">
+                                                    <Setter Property="Foreground" Value="{StaticResource PosSuccess}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Header="Barcode" Binding="{Binding Barcode}" Width="*"/>
+                                <DataGridTextColumn Header="Waktu" Binding="{Binding Waktu, StringFormat='HH:mm:ss'}" Width="Auto"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </materialDesign:Card>
+
+                <!-- Low Stock List -->
+                <materialDesign:Card Grid.Row="1" VerticalAlignment="Stretch" Background="{StaticResource PosPanel}" UniformCornerRadius="8">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border BorderBrush="{StaticResource PosBorder}" BorderThickness="0,0,0,1" Padding="20">
+                            <TextBlock Text="Barang Stok Habis" FontWeight="Bold" FontSize="16" Foreground="{StaticResource PosError}"/>
+                        </Border>
+
+                        <DataGrid Grid.Row="1" x:Name="LowStockGrid" AutoGenerateColumns="False" IsReadOnly="True" 
+                                  HeadersVisibility="Column" GridLinesVisibility="Horizontal" Background="Transparent" BorderThickness="0"
+                                  MouseDoubleClick="LowStockGrid_MouseDoubleClick">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Nama Barang" Binding="{Binding NamaBarang}" Width="*"/>
+                                <DataGridTextColumn Header="Stok" Binding="{Binding Stok}" Width="50"/>
+                                <DataGridTextColumn Header="Min" Binding="{Binding StokMinimum}" Width="50"/>
+                                <DataGridTemplateColumn Header="Status" Width="100">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border Background="{StaticResource PosError}" CornerRadius="4" Padding="5,2">
+                                                <TextBlock Text="{Binding StatusText}" Foreground="White" FontWeight="Bold" FontSize="10" HorizontalAlignment="Center"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </materialDesign:Card>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,86 @@
+<Window x:Class="Views.RestockBarangWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="Restock Barang" Width="520" Height="520"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize">
+    <Border Background="{StaticResource PosBackground}" Padding="20">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Restock / Pembelian Barang" FontSize="18" FontWeight="Bold" Margin="0,0,0,16" Foreground="{StaticResource PosText}"/>
+
+            <StackPanel Grid.Row="1" Margin="0,10,0,10">
+                <Grid Margin="0,0,0,16">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                        <TextBlock Text="Kode Barang" Foreground="{StaticResource PosTextMuted}" Margin="0,0,0,4"/>
+                        <TextBox x:Name="KodeBarangBox" IsReadOnly="True" Foreground="#FFFBFAFA"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Margin="10,0,0,0">
+                        <TextBlock Text="Nama Barang" Foreground="{StaticResource PosTextMuted}" Margin="0,0,0,4"/>
+                        <TextBox x:Name="NamaBarangBox" IsReadOnly="True" Foreground="White"/>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Margin="0,0,0,16">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                        <TextBlock Text="Harga Jual" Foreground="{StaticResource PosTextMuted}" Margin="0,0,0,4"/>
+                        <TextBox x:Name="HargaJualBox" IsReadOnly="True" Foreground="#FFFBF2F2"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Margin="10,0,0,0">
+                        <TextBlock Text="Satuan" Foreground="{StaticResource PosTextMuted}" Margin="0,0,0,4"/>
+                        <TextBox x:Name="SatuanBox" IsReadOnly="True" Foreground="#FFF3EDED"/>
+                    </StackPanel>
+                </Grid>
+
+                <StackPanel Margin="0,0,0,16">
+                    <TextBlock Text="Stok Sekarang" Foreground="{StaticResource PosTextMuted}" Margin="0,0,0,4"/>
+                    <TextBox x:Name="StokSekarangBox" IsReadOnly="True" Foreground="#FFF7F1F1"/>
+                </StackPanel>
+
+                <Grid Margin="0,0,0,16">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                        <TextBlock Text="Harga Modal" Foreground="{StaticResource PosTextMuted}" Margin="0,0,0,4"/>
+                        <TextBox x:Name="HargaModalBox" TextChanged="OnHargaQtyChanged" Foreground="#FFF3EBEB"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Margin="10,0,0,0">
+                        <TextBlock Text="Qty Pembelian" Foreground="{StaticResource PosTextMuted}" Margin="0,0,0,4"/>
+                        <TextBox x:Name="QtyBox" TextChanged="OnHargaQtyChanged" Foreground="#FFF9F6F6"/>
+                    </StackPanel>
+                </Grid>
+
+                <StackPanel Margin="0,0,0,16">
+                    <TextBlock Text="Supplier (opsional)" Foreground="{StaticResource PosTextMuted}" Margin="0,0,0,4"/>
+                    <ComboBox x:Name="SupplierCombo" IsEditable="True" Foreground="#FFFBF7F7"/>
+                </StackPanel>
+
+                <StackPanel Margin="0,0,0,16">
+                    <TextBlock Text="Total Pembelian" Foreground="{StaticResource PosTextMuted}" Margin="0,0,0,4"/>
+                    <TextBox x:Name="TotalBox" IsReadOnly="True" FontWeight="Bold"/>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Batal" Width="100" Margin="0,0,10,0" Click="Cancel_Click"/>
+                <Button x:Name="SaveBtn" Content="Simpan" Width="120" Click="Save_Click" Background="{StaticResource PosAccent}" Foreground="White"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

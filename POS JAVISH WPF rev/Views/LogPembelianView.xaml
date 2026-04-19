@@ -1,0 +1,71 @@
+<UserControl x:Class="Views.LogPembelianView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="768" d:DesignWidth="1024">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Log Pembelian (Restock)" FontSize="20" FontWeight="Bold" Margin="0,0,0,16" Foreground="{StaticResource PosText}"/>
+
+        <Grid Grid.Row="1" Margin="0,0,0,12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="220"/>
+                <ColumnDefinition Width="220"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="140"/>
+            </Grid.ColumnDefinitions>
+            <DatePicker x:Name="StartDatePicker" Margin="0,0,10,0"/>
+            <DatePicker x:Name="EndDatePicker" Grid.Column="1" Margin="10,0,10,0"/>
+            <TextBox x:Name="SearchBox" Grid.Column="2" Style="{StaticResource MaterialDesignOutlinedTextBox}" 
+                     materialDesign:HintAssist.Hint="Cari (NoFaktur / Kode / Nama / Supplier / Username)"/>
+            <Button Grid.Column="3" Content="Filter" Style="{StaticResource MaterialDesignRaisedButton}" Click="FilterBtn_Click"
+                    Background="{StaticResource PosAccent}" BorderBrush="{StaticResource PosAccent}"/>
+        </Grid>
+
+        <Border Grid.Row="2" Background="{StaticResource PosPanel}" CornerRadius="8">
+            <DataGrid x:Name="LogGrid" AutoGenerateColumns="False" IsReadOnly="True"
+                      CanUserSortColumns="True"
+                      EnableRowVirtualization="True" EnableColumnVirtualization="True"
+                      Background="Transparent" BorderThickness="0"
+                      materialDesign:DataGridAssist.CellPadding="13 8 8 8" 
+                      materialDesign:DataGridAssist.ColumnHeaderPadding="8">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Waktu" Binding="{Binding Timestamp, StringFormat='dd/MM/yyyy HH:mm:ss'}" Width="170"/>
+                    <DataGridTextColumn Header="User" Binding="{Binding Username}" Width="120"/>
+                    <DataGridTextColumn Header="No Faktur" Binding="{Binding NoFaktur}" Width="150"/>
+                    <DataGridTextColumn Header="Kode" Binding="{Binding Kode}" Width="110"/>
+                    <DataGridTextColumn Header="Nama" Binding="{Binding Nama}" Width="*"/>
+                    <DataGridTextColumn Header="Satuan" Binding="{Binding Satuan}" Width="90"/>
+                    <DataGridTextColumn Header="Qty" Binding="{Binding Qty}" Width="60"/>
+                    <DataGridTextColumn Header="Stok Before" Binding="{Binding StokBefore}" Width="90"/>
+                    <DataGridTextColumn Header="Stok After" Binding="{Binding StokAfter}" Width="90"/>
+                    <DataGridTextColumn Header="Harga Modal" Binding="{Binding HargaModal, StringFormat=C0}" Width="120"/>
+                    <DataGridTextColumn Header="Harga Jual" Binding="{Binding HargaJual, StringFormat=C0}" Width="120"/>
+                    <DataGridTextColumn Header="Total" Binding="{Binding Total, StringFormat=C0}" Width="140"/>
+                    <DataGridTextColumn Header="Supplier" Binding="{Binding SupplierName}" Width="160"/>
+                    <DataGridTemplateColumn Header="Aksi" Width="80">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Style="{StaticResource MaterialDesignFlatButton}" 
+                                        Foreground="{StaticResource PosError}"
+                                        Click="DeleteLog_Click"
+                                        ToolTip="Hapus Pembelian dan Kembalikan Stok"
+                                        Padding="0" Height="30" Width="30">
+                                    <materialDesign:PackIcon Kind="Delete" Width="20" Height="20"/>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+    </Grid>
+</UserControl>

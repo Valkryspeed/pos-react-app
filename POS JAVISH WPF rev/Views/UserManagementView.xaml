@@ -1,0 +1,81 @@
+<UserControl x:Class="Views.UserManagementView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="768" d:DesignWidth="1024">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Manajemen Pengguna" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Margin="0,0,0,20" Foreground="{StaticResource PosText}"/>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="400"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- User List -->
+            <Border Grid.Column="0" Background="{StaticResource PosPanel}" CornerRadius="8" Margin="0,0,20,0" Padding="10">
+                <DataGrid x:Name="UserGrid" AutoGenerateColumns="False" IsReadOnly="True" 
+                          SelectionMode="Single" SelectionUnit="FullRow"
+                          SelectionChanged="UserGrid_SelectionChanged"
+                          Background="Transparent" BorderThickness="0"
+                          materialDesign:DataGridAssist.CellPadding="13 8 8 8" 
+                          materialDesign:DataGridAssist.ColumnHeaderPadding="8">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Username" Binding="{Binding Username}" Width="*"/>
+                        <DataGridTextColumn Header="Nama Lengkap" Binding="{Binding FullName}" Width="*"/>
+                        <DataGridTextColumn Header="Role" Binding="{Binding Role}" Width="100"/>
+                        <DataGridCheckBoxColumn Header="Aktif" Binding="{Binding IsActive}" Width="60"/>
+                        <DataGridTemplateColumn Width="Auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Style="{StaticResource MaterialDesignIconButton}" ToolTip="Reset Password" Click="ResetPassword_Click">
+                                            <materialDesign:PackIcon Kind="KeyVariant" Foreground="{StaticResource PosWarning}"/>
+                                        </Button>
+                                        <Button Style="{StaticResource MaterialDesignIconButton}" ToolTip="Hapus/Nonaktifkan" Click="DeleteUser_Click">
+                                            <materialDesign:PackIcon Kind="Delete" Foreground="{StaticResource PosError}"/>
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
+
+            <!-- Form -->
+            <Border Grid.Column="1" Background="{StaticResource PosPanel}" CornerRadius="8" Padding="20">
+                <StackPanel>
+                    <TextBlock Text="Tambah / Edit User" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,20"/>
+
+                    <TextBox x:Name="TxtUsername" Style="{StaticResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint="Username" Margin="0,0,0,15" Foreground="WhiteSmoke"/>
+                    <TextBox x:Name="TxtFullName" Style="{StaticResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint="Nama Lengkap" Margin="0,0,0,15" Foreground="#FFF7F6F6"/>
+                    
+                    <ComboBox x:Name="CmbRole" Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Role" Margin="0,0,0,15" Foreground="#FFF5EFEF">
+                        <ComboBoxItem Content="Admin"/>
+                        <ComboBoxItem Content="Kasir"/>
+                        <ComboBoxItem Content="Supervisor"/>
+                    </ComboBox>
+
+                    <PasswordBox x:Name="TxtPassword" Style="{StaticResource MaterialDesignOutlinedPasswordBox}" materialDesign:HintAssist.Hint="Password" Margin="0,0,0,15" Foreground="#FFF7F3F3"/>
+                    <TextBlock Text="* Kosongkan password jika hanya mengedit data user (bukan ganti password)" FontSize="11" Foreground="Gray" TextWrapping="Wrap" Margin="0,-10,0,15"/>
+
+                    <CheckBox x:Name="ChkActive" Content="Aktif" IsChecked="True" Margin="0,0,0,20"/>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button x:Name="BtnClear" Style="{StaticResource MaterialDesignOutlinedButton}" Content="Batal" Width="100" Margin="0,0,10,0" Click="BtnClear_Click"/>
+                        <Button x:Name="BtnSave" Style="{StaticResource MaterialDesignFlatButton}" Content="Simpan" Width="100" Click="BtnSave_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

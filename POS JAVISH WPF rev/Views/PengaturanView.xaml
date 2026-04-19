@@ -1,0 +1,198 @@
+<UserControl x:Class="Views.PengaturanView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="768" d:DesignWidth="1024">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Pengaturan Aplikasi" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Margin="0,0,0,20" Foreground="{StaticResource PosText}"/>
+
+        <ScrollViewer Grid.Row="1">
+            <StackPanel MaxWidth="800" HorizontalAlignment="Left">
+                <!-- Profil Toko -->
+                <materialDesign:Card Background="{StaticResource PosPanel}" Padding="20" UniformCornerRadius="8" Margin="0,0,0,20">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                            <materialDesign:PackIcon Kind="Store" Width="24" Height="24" Foreground="{StaticResource PosAccent}" VerticalAlignment="Center"/>
+                            <TextBlock Text="Profil Toko" FontWeight="Bold" FontSize="16" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="{StaticResource PosText}"/>
+                        </StackPanel>
+                        
+                        <TextBox x:Name="StoreNameBox" Style="{StaticResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint="Nama Toko" Text="POS JAVISH" Margin="0,0,0,15" Foreground="{StaticResource PosText}" CaretBrush="{StaticResource PosText}"/>
+                        <TextBox x:Name="StoreAddressBox" Style="{StaticResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint="Alamat" Text="Jl. Teknologi No. 1" Margin="0,0,0,15" Foreground="{StaticResource PosText}" CaretBrush="{StaticResource PosText}"/>
+                        <TextBox x:Name="StorePhoneBox" Style="{StaticResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint="No. Telepon" Text="0812-3456-7890" Margin="0,0,0,15" Foreground="{StaticResource PosText}" CaretBrush="{StaticResource PosText}"/>
+                        
+                        <Button x:Name="SaveProfileBtn" Click="SaveProfileBtn_Click" Content="SIMPAN PROFIL" HorizontalAlignment="Right" Style="{StaticResource MaterialDesignRaisedButton}" Background="{StaticResource PosAccent}" BorderBrush="{StaticResource PosAccent}"/>
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <!-- Perangkat Keras -->
+                <materialDesign:Card Background="{StaticResource PosPanel}" Padding="20" UniformCornerRadius="8" Margin="0,0,0,20">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                            <materialDesign:PackIcon Kind="Printer" Width="24" Height="24" Foreground="{StaticResource PosWarning}" VerticalAlignment="Center"/>
+                            <TextBlock Text="Perangkat Keras" FontWeight="Bold" FontSize="16" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="{StaticResource PosText}"/>
+                        </StackPanel>
+
+                        <ComboBox x:Name="PrinterCombo" Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Printer Struk" Margin="0,0,0,15" Foreground="{StaticResource PosText}"/>
+                        
+                        <ComboBox x:Name="PaperSizeCombo" Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Ukuran Kertas" Margin="0,0,0,15" Foreground="{StaticResource PosText}">
+                            <ComboBoxItem Content="58mm (Kecil)" Tag="58"/>
+                            <ComboBoxItem Content="80mm (Besar)" Tag="80"/>
+                        </ComboBox>
+
+                        <CheckBox x:Name="AutoPrintCheck" Content="Print Otomatis setelah bayar" IsChecked="True" Foreground="{StaticResource PosText}" Margin="0,0,0,10"/>
+                        <CheckBox x:Name="AutoOpenDrawerCheck" Content="Buka Cash Drawer Otomatis" IsChecked="True" Foreground="{StaticResource PosText}" Margin="0,0,0,15"/>
+                        
+                        <TextBox x:Name="ReceiptFooterBox" Style="{StaticResource MaterialDesignOutlinedTextBox}" 
+                                 materialDesign:HintAssist.Hint="Pesan Kaki Struk (Footer)" 
+                                 TextWrapping="Wrap" AcceptsReturn="True" Height="80"
+                                 Margin="0,0,0,15" Foreground="{StaticResource PosText}" CaretBrush="{StaticResource PosText}"/>
+                        
+                        <Button x:Name="SaveHardwareBtn" Click="SaveHardwareBtn_Click" Content="SIMPAN PENGATURAN" HorizontalAlignment="Right" Style="{StaticResource MaterialDesignRaisedButton}" Background="{StaticResource PosWarning}" BorderBrush="{StaticResource PosWarning}"/>
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <materialDesign:Card Background="{StaticResource PosPanel}" Padding="20" UniformCornerRadius="8" Margin="0,0,0,20">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                            <materialDesign:PackIcon Kind="BarcodeScan" Width="24" Height="24" Foreground="{StaticResource PosAccent}" VerticalAlignment="Center"/>
+                            <TextBlock Text="Barcode Scanner" FontWeight="Bold" FontSize="16" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="{StaticResource PosText}"/>
+                        </StackPanel>
+
+                        <Grid Margin="0,0,0,15">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="0" x:Name="BarcodeSpeedBox" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                     materialDesign:HintAssist.Hint="Kecepatan Scan (ms)"
+                                     Margin="0,0,10,0" Foreground="{StaticResource PosText}" CaretBrush="{StaticResource PosText}"/>
+                            <TextBox Grid.Column="1" x:Name="BarcodeMinLenBox" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                     materialDesign:HintAssist.Hint="Minimal Panjang Barcode"
+                                     Margin="10,0,0,0" Foreground="{StaticResource PosText}" CaretBrush="{StaticResource PosText}"/>
+                        </Grid>
+
+                        <TextBox x:Name="BarcodeTimeoutBox" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                 materialDesign:HintAssist.Hint="Timeout Auto Submit (ms)"
+                                 Margin="0,0,0,10" Foreground="{StaticResource PosText}" CaretBrush="{StaticResource PosText}"/>
+
+                        <CheckBox x:Name="BarcodeAcceptTabCheck" Content="Terima TAB sebagai Terminator" Foreground="{StaticResource PosText}" Margin="0,0,0,10"/>
+                        <CheckBox x:Name="BarcodeAutoSubmitTimeoutCheck" Content="Auto Submit jika tidak ada input" Foreground="{StaticResource PosText}" Margin="0,0,0,15"/>
+
+                        <Button x:Name="SaveBarcodeBtn" Click="SaveBarcodeBtn_Click" Content="SIMPAN SETTING SCANNER" HorizontalAlignment="Right"
+                                Style="{StaticResource MaterialDesignRaisedButton}" Background="{StaticResource PosAccent}" BorderBrush="{StaticResource PosAccent}"/>
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <!-- Database -->
+                <materialDesign:Card Background="{StaticResource PosPanel}" Padding="20" UniformCornerRadius="8" Margin="0,0,0,20">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                            <materialDesign:PackIcon Kind="Database" Width="24" Height="24" Foreground="{StaticResource PosError}" VerticalAlignment="Center"/>
+                            <TextBlock Text="Database &amp; Backup" FontWeight="Bold" FontSize="16" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="{StaticResource PosText}"/>
+                        </StackPanel>
+
+                        <TextBlock Text="Lokasi Database: Aman (Folder Sistem)" Margin="0,0,0,15" Opacity="0.7" Foreground="{StaticResource PosText}"/>
+                        
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                            <Button x:Name="BackupBtn" Click="BackupBtn_Click" Content="BACKUP DATABASE" Style="{StaticResource MaterialDesignOutlinedButton}" Margin="0,0,15,0" Foreground="{StaticResource PosSuccess}" BorderBrush="{StaticResource PosSuccess}"/>
+                            <Button x:Name="RestoreBtn" Click="RestoreBtn_Click" Content="RESTORE DATABASE" Style="{StaticResource MaterialDesignOutlinedButton}" Margin="0,0,15,0" Foreground="{StaticResource PosWarning}" BorderBrush="{StaticResource PosWarning}"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="FileExcel" Width="24" Height="24" Foreground="{StaticResource PosSuccess}" VerticalAlignment="Center"/>
+                            <TextBlock Text="Export Data" FontWeight="Bold" FontSize="16" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="{StaticResource PosText}"/>
+                        </StackPanel>
+                        <TextBlock Text="Export data barang ke format CSV (Excel)" Margin="0,5,0,15" Opacity="0.7" Foreground="{StaticResource PosText}"/>
+                        
+                        <Button x:Name="ExportBtn" Click="ExportBtn_Click" Content="EXPORT DATA BARANG" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignRaisedButton}" Background="{StaticResource PosSuccess}" BorderBrush="{StaticResource PosSuccess}"/>
+                        
+                        <Separator Margin="0,20" Background="{StaticResource PosBorder}"/>
+
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="FileImport" Width="24" Height="24" Foreground="{StaticResource PosAccent}" VerticalAlignment="Center"/>
+                            <TextBlock Text="Import Data" FontWeight="Bold" FontSize="16" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="{StaticResource PosText}"/>
+                        </StackPanel>
+                        <TextBlock Text="Import data barang dari CSV (Format: Kode,Nama,Modal,Jual,Stok,Satuan)" TextWrapping="Wrap" Margin="0,5,0,15" Opacity="0.7" Foreground="{StaticResource PosText}"/>
+
+                        <Button x:Name="ImportBtn" Click="ImportBtn_Click" Content="IMPORT DATA BARANG" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignRaisedButton}" Background="{StaticResource PosAccent}" BorderBrush="{StaticResource PosAccent}"/>
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <!-- Lisensi -->
+                <materialDesign:Card Background="{StaticResource PosPanel}" Padding="20" UniformCornerRadius="8" Margin="0,0,0,20">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                            <materialDesign:PackIcon Kind="ShieldKey" Width="24" Height="24" Foreground="{StaticResource PosAccent}" VerticalAlignment="Center"/>
+                            <TextBlock Text="Lisensi Aplikasi" FontWeight="Bold" FontSize="16" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="{StaticResource PosText}"/>
+                        </StackPanel>
+
+                        <TextBlock x:Name="StatusAktivasiText" Text="Status: Versi Demo" Margin="0,0,0,15" Foreground="{StaticResource PosError}" FontWeight="Bold"/>
+                        
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="ActivationBtn" Click="ActivationBtn_Click" Content="AKTIVASI APLIKASI" Style="{StaticResource MaterialDesignRaisedButton}" HorizontalAlignment="Left" Background="{StaticResource PosAccent}" BorderBrush="{StaticResource PosAccent}" Margin="0,0,10,0"/>
+                            <Button x:Name="ResetActivationBtn" Click="ResetActivationBtn_Click" Content="RESET AKTIVASI" Style="{StaticResource MaterialDesignFlatButton}" HorizontalAlignment="Left" Foreground="{StaticResource PosError}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <!-- Mobile Monitoring -->
+                <materialDesign:Card Background="{StaticResource PosPanel}" Padding="20" UniformCornerRadius="8" Margin="0,0,0,20">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                            <materialDesign:PackIcon Kind="Cellphone" Width="24" Height="24" Foreground="{StaticResource PosAccent}" VerticalAlignment="Center"/>
+                            <TextBlock Text="Mobile Monitoring" FontWeight="Bold" FontSize="16" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="{StaticResource PosText}"/>
+                        </StackPanel>
+
+                        <TextBlock Text="Gunakan alamat di bawah ini pada browser ponsel Anda untuk memantau toko secara real-time. Pastikan ponsel terhubung ke WiFi yang sama dengan komputer ini." 
+                                   TextWrapping="Wrap" Margin="0,0,0,15" Opacity="0.7" Foreground="{StaticResource PosText}"/>
+
+                        <Border Background="{StaticResource PosBorder}" CornerRadius="4" Padding="15" Margin="0,0,0,15">
+                            <StackPanel>
+                                <TextBlock Text="Alamat Akses:" FontSize="12" Opacity="0.6" Foreground="{StaticResource PosText}"/>
+                                <TextBox x:Name="ApiUrlBox" Text="http://loading..." IsReadOnly="True" FontWeight="Bold" FontSize="18" 
+                                         Foreground="{StaticResource PosAccent}" BorderThickness="0" Background="Transparent" Padding="0,5"/>
+                            </StackPanel>
+                        </Border>
+
+                        <TextBlock Text="Tips:" FontWeight="Bold" Margin="0,0,0,5" Foreground="{StaticResource PosText}"/>
+                        <TextBlock Text="• Ponsel dan Komputer harus dalam satu jaringan WiFi." Margin="10,0,0,2" Foreground="{StaticResource PosText}"/>
+                        <TextBlock Text="• Jika tidak terbuka, periksa pengaturan Firewall Windows Anda dan izinkan Port 5050." Margin="10,0,0,0" Foreground="{StaticResource PosText}"/>
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <!-- Customer Display -->
+                <materialDesign:Card Background="{StaticResource PosPanel}" Padding="20" UniformCornerRadius="8" Margin="0,0,0,20">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                            <materialDesign:PackIcon Kind="MonitorScreenshot" Width="24" Height="24" Foreground="{StaticResource PosSuccess}" VerticalAlignment="Center"/>
+                            <TextBlock Text="Layar Pembeli (Customer Display)" FontWeight="Bold" FontSize="16" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="{StaticResource PosText}"/>
+                        </StackPanel>
+
+                        <TextBlock Text="Tampilkan daftar belanjaan dan total harga secara real-time kepada pembeli. Buka alamat ini di Tablet atau Monitor kedua yang menghadap ke pembeli." 
+                                   TextWrapping="Wrap" Margin="0,0,0,15" Opacity="0.7" Foreground="{StaticResource PosText}"/>
+
+                        <Border Background="{StaticResource PosBorder}" CornerRadius="4" Padding="15" Margin="0,0,0,15">
+                            <StackPanel>
+                                <TextBlock Text="Alamat Customer Display:" FontSize="12" Opacity="0.6" Foreground="{StaticResource PosText}"/>
+                                <TextBox x:Name="CustomerUrlBox" Text="http://loading..." IsReadOnly="True" FontWeight="Bold" FontSize="18" 
+                                         Foreground="{StaticResource PosSuccess}" BorderThickness="0" Background="Transparent" Padding="0,5"/>
+                            </StackPanel>
+                        </Border>
+
+                        <TextBlock Text="Keunggulan:" FontWeight="Bold" Margin="0,0,0,5" Foreground="{StaticResource PosText}"/>
+                        <TextBlock Text="• Update otomatis tanpa refresh." Margin="10,0,0,2" Foreground="{StaticResource PosText}"/>
+                        <TextBlock Text="• Bisa dibuka di banyak perangkat sekaligus." Margin="10,0,0,0" Foreground="{StaticResource PosText}"/>
+                    </StackPanel>
+                </materialDesign:Card>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

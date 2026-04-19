@@ -1,0 +1,9 @@
+C:\Users\home\Desktop\POS WPF\POS JAVISH WPF.pdb
+C:\Users\home\Desktop\POS WPF\D3DCompiler_47_cor3.dll
+C:\Users\home\Desktop\POS WPF\PenImc_cor3.dll
+C:\Users\home\Desktop\POS WPF\PresentationNative_cor3.dll
+C:\Users\home\Desktop\POS WPF\vcruntime140_cor3.dll
+C:\Users\home\Desktop\POS WPF\wpfgfx_cor3.dll
+C:\Users\home\Desktop\POS WPF\aspnetcorev2_inprocess.dll
+C:\Users\home\Desktop\POS WPF\e_sqlite3.dll
+C:\Users\home\Desktop\POS WPF\POS JAVISH WPF.exe

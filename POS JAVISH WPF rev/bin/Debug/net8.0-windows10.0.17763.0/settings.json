@@ -1,0 +1,11 @@
+{
+  "StoreName": "POS JAVISH",
+  "StoreAddress": "Jl. Teknologi No. 1",
+  "StorePhone": "0812-3456-7890",
+  "PrinterName": "Blueprint_M58(copy of 1)",
+  "PaperSize": 58,
+  "AutoPrint": true,
+  "AutoOpenDrawer": true,
+  "ReceiptFooter": "Terima Kasih Atas Kunjungan Anda",
+  "ActivationKey": ""
+}

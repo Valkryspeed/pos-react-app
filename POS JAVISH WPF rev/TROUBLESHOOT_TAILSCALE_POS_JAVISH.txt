@@ -1,0 +1,108 @@
+TROUBLESHOOT TAILSCALE - POS JAVISH (PORT 5050/5051)
+
+Tujuan:
+- Pastikan web server POS JAVISH di PC Client benar-benar jalan (listen) di port 5050/5051
+- Pastikan bisa diakses dari perangkat lain lewat Tailscale
+
+CATATAN PENTING:
+- Jalankan POS JAVISH dulu di PC Client sebelum tes.
+- Pastikan HP/Laptop Anda dan PC Client sama-sama login Tailscale (1 akun / 1 tailnet).
+- Jika pakai VPN lain (bukan Tailscale), matikan dulu.
+
+============================================================
+STEP A - TES PALING CEPAT (DI PC CLIENT)
+============================================================
+1) Buka browser di PC Client, coba URL ini:
+   http://localhost:5050/api/ping
+
+Hasil yang diharapkan:
+- Muncul JSON status "ok" / "Pong"
+
+Jika GAGAL:
+- Lanjut STEP B (cek port bentrok / server tidak listen)
+
+Jika BERHASIL:
+- Lanjut STEP C (cek akses dari Tailscale)
+
+============================================================
+STEP B - CEK PORT 5050 BENTROK / SERVER TIDAK LISTEN
+============================================================
+Di PC Client, buka PowerShell sebagai Administrator:
+Start -> ketik "PowerShell" -> klik kanan -> Run as Administrator
+
+2) Cek siapa yang listen di port 5050:
+
+   Get-NetTCPConnection -State Listen -LocalPort 5050 | Select-Object LocalAddress,LocalPort,OwningProcess
+
+Interpretasi:
+- Jika ada output OwningProcess dan itu BUKAN POS JAVISH -> port 5050 dipakai aplikasi lain (bentrok).
+- Jika kosong -> tidak ada yang listen. Berarti web server POS JAVISH tidak start atau gagal bind.
+
+3) Untuk melihat nama proses dari PID (OwningProcess):
+
+   $pid = (Get-NetTCPConnection -State Listen -LocalPort 5050).OwningProcess
+   Get-Process -Id $pid
+
+KIRIMKAN KE DEVELOPER:
+- Screenshot error saat buka http://localhost:5050/api/ping
+- Output perintah nomor (2) dan (3)
+
+============================================================
+STEP C - TES DARI PERANGKAT ANDA VIA TAILSCALE
+============================================================
+4) Cari IP Tailscale PC Client (di aplikasi Tailscale biasanya 100.x.x.x).
+   Contoh: 100.101.102.103
+
+5) Dari HP/Laptop Anda (yang juga ON Tailscale), buka:
+   http://IP-TAILSCALE-CLIENT:5050/api/ping
+
+Jika BERHASIL:
+- Akses internet/Tailscale sudah OK.
+- Anda bisa akses:
+  - Monitoring: http://IP-TAILSCALE-CLIENT:5050/
+  - Customer display: http://IP-TAILSCALE-CLIENT:5050/customer
+
+Jika GAGAL (tapi localhost berhasil):
+- Hampir pasti Firewall memblokir akses inbound dari interface Tailscale.
+- Jalankan STEP D.
+
+============================================================
+STEP D - BUAT RULE FIREWALL (PALING AMPUH)
+============================================================
+Di PC Client (PowerShell Admin), jalankan:
+
+1) Buka port 5050 & 5051 untuk semua profile:
+   New-NetFirewallRule -DisplayName "POS JAVISH 5050 TCP" -Direction Inbound -Action Allow -Protocol TCP -LocalPort 5050 -Profile Any
+   New-NetFirewallRule -DisplayName "POS JAVISH 5051 TCP" -Direction Inbound -Action Allow -Protocol TCP -LocalPort 5051 -Profile Any
+
+2) Pastikan rule benar-benar aktif:
+   Get-NetFirewallRule -DisplayName "POS JAVISH 5050 TCP","POS JAVISH 5051 TCP" | Select-Object DisplayName,Enabled,Profile,Direction,Action
+
+3) Tes ulang:
+   - Dari PC Client: http://localhost:5050/api/ping
+   - Dari HP/Laptop via Tailscale: http://IP-TAILSCALE-CLIENT:5050/api/ping
+
+============================================================
+STEP E - KUMPULKAN DATA UNTUK DIKIRIM (JIKA MASIH GAGAL)
+============================================================
+Jalankan di PC Client (PowerShell Admin), copy hasilnya:
+
+1) IP PC (LAN):
+   ipconfig
+
+2) Status rule firewall:
+   Get-NetFirewallRule -DisplayName "POS JAVISH 5050 TCP","POS JAVISH 5051 TCP" | Select-Object DisplayName,Enabled,Profile
+
+3) Cek port listen:
+   Get-NetTCPConnection -State Listen -LocalPort 5050 | Select-Object LocalAddress,LocalPort,OwningProcess
+
+4) Jika ada OwningProcess, ambil proses:
+   $pid = (Get-NetTCPConnection -State Listen -LocalPort 5050).OwningProcess
+   Get-Process -Id $pid
+
+Kirim semua output + screenshot error browser (kalau ada).
+
+============================================================
+CATATAN
+============================================================
+- Jika port 5050 bentrok (dipakai aplikasi lain), solusinya pindah port POS JAVISH ke port lain (mis. 6060/6061) lalu publish ulang.

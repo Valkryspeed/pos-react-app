@@ -1,0 +1,105 @@
+<UserControl x:Class="Views.LaporanView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="768" d:DesignWidth="1024">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <TextBlock Text="Laporan Penjualan" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Margin="0,0,0,20" Foreground="{StaticResource PosText}"/>
+
+        <!-- Filters -->
+        <Border Grid.Row="1" Background="{StaticResource PosPanel}" Padding="20" CornerRadius="8" Margin="0,0,0,20" Effect="{DynamicResource MaterialDesignShadowDepth1}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+                <DatePicker x:Name="StartDatePicker" materialDesign:HintAssist.Hint="Dari Tanggal" Width="150" Margin="0,0,20,0" Foreground="{StaticResource PosText}"/>
+                <DatePicker x:Name="EndDatePicker" Grid.Column="1" materialDesign:HintAssist.Hint="Sampai Tanggal" Width="150" Margin="0,0,20,0" Foreground="{StaticResource PosText}"/>
+                
+                <Button Grid.Column="2" Content="TAMPILKAN" Style="{StaticResource MaterialDesignRaisedButton}" Click="FilterBtn_Click" Background="{StaticResource PosAccent}" BorderBrush="{StaticResource PosAccent}"/>
+                
+                <!-- Summary -->
+                <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <StackPanel Margin="0,0,30,0">
+                        <TextBlock Text="Total Omset" FontSize="12" Foreground="{StaticResource PosTextMuted}"/>
+                        <TextBlock x:Name="TotalOmsetText" Text="Rp 0" FontWeight="Bold" FontSize="18" Foreground="{StaticResource PosSuccess}"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="Total Transaksi" FontSize="12" Foreground="{StaticResource PosTextMuted}"/>
+                        <TextBlock x:Name="TotalTrxText" Text="0" FontWeight="Bold" FontSize="18" Foreground="{StaticResource PosText}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Data Grid -->
+        <Border Grid.Row="2" Background="{StaticResource PosPanel}" CornerRadius="8" Effect="{DynamicResource MaterialDesignShadowDepth1}">
+            <DataGrid x:Name="ReportGrid" AutoGenerateColumns="False" IsReadOnly="True" 
+                      Background="Transparent" BorderThickness="0"
+                      materialDesign:DataGridAssist.CellPadding="13 8 8 8" 
+                      materialDesign:DataGridAssist.ColumnHeaderPadding="8"
+                      RowDetailsVisibilityMode="VisibleWhenSelected">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="No Transaksi" Binding="{Binding NoTransaksi}" Width="*"/>
+                    <DataGridTextColumn Header="Tanggal" Binding="{Binding Tanggal, StringFormat='dd/MM/yyyy HH:mm'}"/>
+                    <DataGridTextColumn Header="Total Belanja" Binding="{Binding Total, StringFormat=C0}" FontWeight="Bold">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="{StaticResource PosSuccess}"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Bayar" Binding="{Binding Bayar, StringFormat=C0}"/>
+                    <DataGridTextColumn Header="Kembalian" Binding="{Binding Kembalian, StringFormat=C0}"/>
+                    <DataGridTemplateColumn Width="Auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Style="{StaticResource MaterialDesignIconButton}" ToolTip="Cetak Ulang Struk" Click="Reprint_Click">
+                                    <materialDesign:PackIcon Kind="Printer" Foreground="{StaticResource PosAccent}"/>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+                <DataGrid.RowDetailsTemplate>
+                    <DataTemplate>
+                        <Border Background="#1E293B" Padding="20" BorderBrush="{StaticResource PosBorder}" BorderThickness="0,1,0,1">
+                            <StackPanel>
+                                <TextBlock Text="Detail Item Belanja:" FontWeight="Bold" Margin="0,0,0,10" Foreground="{StaticResource PosAccent}"/>
+                                <ItemsControl ItemsSource="{Binding Items}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid Margin="0,0,0,5">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="100"/>
+                                                    <ColumnDefinition Width="150"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Text="{Binding NamaBarang}" Foreground="{StaticResource PosText}"/>
+                                                <TextBlock Grid.Column="1" Text="{Binding Qty, StringFormat='{}x {0}'}" Foreground="{StaticResource PosTextMuted}"/>
+                                                <TextBlock Grid.Column="2" Text="{Binding Subtotal, StringFormat=C0}" TextAlignment="Right" FontWeight="Bold" Foreground="{StaticResource PosText}"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </DataGrid.RowDetailsTemplate>
+            </DataGrid>
+        </Border>
+    </Grid>
+</UserControl>

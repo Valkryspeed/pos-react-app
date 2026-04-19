@@ -1,0 +1,63 @@
+<Window x:Class="Views.ProductFormWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Form Produk" Height="500" Width="400"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Detail Produk" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Margin="0,0,0,20" Foreground="#FFF9F9F9"/>
+
+        <StackPanel Grid.Row="1">
+            <TextBox x:Name="KodeBox" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                     materialDesign:HintAssist.Hint="Kode Barang (Scan/Ketik)"
+                     Margin="0,0,0,15" KeyDown="KodeBox_KeyDown"/>
+
+            <TextBox x:Name="NamaBox" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                     materialDesign:HintAssist.Hint="Nama Barang"
+                     Margin="0,0,0,15" KeyDown="NamaBox_KeyDown"/>
+
+            <Grid Margin="0,0,0,15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" x:Name="HargaModalBox" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         materialDesign:HintAssist.Hint="Harga Modal" Margin="0,0,5,0" KeyDown="HargaModalBox_KeyDown"/>
+                <TextBox Grid.Column="1" x:Name="HargaJualBox" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         materialDesign:HintAssist.Hint="Harga Jual" Margin="5,0,0,0" KeyDown="HargaJualBox_KeyDown"/>
+            </Grid>
+
+            <Grid Margin="0,0,0,15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" x:Name="StokBox" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         materialDesign:HintAssist.Hint="Stok Awal" Margin="0,0,5,0" KeyDown="StokBox_KeyDown"/>
+                <TextBox Grid.Column="1" x:Name="SatuanBox" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         materialDesign:HintAssist.Hint="Satuan (Pcs/Kg)" Margin="5,0,0,0" KeyDown="SatuanBox_KeyDown"/>
+            </Grid>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+            <Button Content="BATAL" Style="{StaticResource MaterialDesignOutlinedButton}" Margin="0,0,10,0" IsCancel="True"/>
+            <Button Content="SIMPAN" Style="{StaticResource MaterialDesignRaisedButton}" Click="SaveBtn_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
